@@ -1,0 +1,9 @@
+---
+- name: mein erstes Beispiel
+  hosts: server1
+  tasks:
+    - name: erstell einen Ordner, der ein File enthaelt
+      shell: mkdir -p /tmp/el-refaay && touch /tmp/el-refaay/file1
+
+    - name: erstell ein File, das einen Satz enthaelt
+      shell: 'echo "Hallo zusammen. Aegpter:elrefaay ist in Deutschland" >> /tmp/el-refaay/file2'
