@@ -1,0 +1,42 @@
+---
+- hosts: server1
+  become: true
+  tasks:
+    - name: mount
+      command: mount /dev/sr1 /mnt/
+    - name: Add multiple repositories into the same file (1/2)
+      ansible.builtin.yum_repository:
+        name: BaseOS
+        description: BaseOS packages
+        file: elrefaay
+        baseurl: file:///mnt/BaseOS
+        enabled: yes
+        gpgcheck: no
+
+    - name: Add multiple repositories into the same file (2/2)
+      ansible.builtin.yum_repository:
+        name: AppStream
+        description: AppStream packages
+        file: elrefaay
+        baseurl: file:///mnt/AppStream
+        enabled: yes
+        gpgcheck: no
+
+    - name: Install the latest version of Apache
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+
+    - name: Enable service httpd, and start it
+      ansible.builtin.service:
+        name: httpd
+        enabled: yes
+        state: started
+
+    - name: Permit traffic in dmz zone on http service
+      ansible.posix.firewalld:
+        zone: public
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
