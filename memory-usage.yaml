@@ -1,0 +1,11 @@
+---
+- hosts:  Server
+  tasks:  
+    - debug:
+       msg: |
+         total memory is {{ ansible_memtotal_mb  }} , memory free space is {{ ansible_memory_mb.real.free  }} MiB
+
+    - file: 
+        path: /tmp/tempo
+        state:  touch 
+      when:      ansible_memory_mb.real.free > 5000

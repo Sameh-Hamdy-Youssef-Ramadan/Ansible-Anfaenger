@@ -1,0 +1,7 @@
+---
+- hosts:  Server
+  tasks:  
+    - name: print partition size 
+      debug:
+        msg:  |
+          total disk size is   {{ ansible_devices.nvme0n1.size  }} , first part size is {{ ansible_devices.nvme0n1.partitions.nvme0n1p1.size }} , second part size is {{ ansible_devices.nvme0n1.partitions.nvme0n1p2.size  }} 

@@ -1,0 +1,7 @@
+---
+- hosts:  Server
+  tasks:
+    - name: print date on Server
+      debug:
+        msg: |
+           date on Server is {{ ansible_date_time.date }} and time {{ ansible_date_time.time }}

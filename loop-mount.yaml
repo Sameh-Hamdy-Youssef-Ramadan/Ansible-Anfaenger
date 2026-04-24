@@ -1,0 +1,13 @@
+---
+- hosts: Server
+  tasks:
+    - debug:
+        msg: |
+          item is {{ item.mount }} and total space is {{ item.size_total }}
+      loop: "{{ ansible_mounts }}"
+
+    - file:
+        path: /tmp/tempo
+        state: touch
+      when: item.mount == "/boot" and item.size_total > 100000000
+      loop: "{{ ansible_mounts }}"

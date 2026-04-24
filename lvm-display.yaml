@@ -1,0 +1,11 @@
+---
+- hosts:  Server 
+  tasks:  
+    - debug:  
+        msg:  | 
+          total size of vg is {{ ansible_lvm.vgs.rhel.size_g }} GiB
+
+    - file: 
+        path: /tmp/tempo
+        state:  touch
+      when:       ansible_lvm.vgs.rhel.size_g > "1000"
